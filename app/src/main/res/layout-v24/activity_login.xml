@@ -76,8 +76,6 @@ tools:context=".LoginActivity">
             android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent" />
 
-
-
         <EditText
             android:id="@+id/wdate"
             android:layout_width="250dp"
@@ -116,7 +114,8 @@ tools:context=".LoginActivity">
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="@dimen/eight"
-            app:rippleColor="@color/colorAccent"
+            android:backgroundTint="@color/colorAccent"
+            app:rippleColor="@color/textcolorwhite"
             android:autoSizeTextType="uniform"
             android:autoSizeMinTextSize="1sp"
             android:autoSizeMaxTextSize="18sp"
