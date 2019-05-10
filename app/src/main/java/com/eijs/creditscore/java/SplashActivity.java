@@ -1,4 +1,4 @@
-package com.eijs.creditscore;
+package com.eijs.creditscore.java;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.eijs.creditscore.R;
 
 public class SplashActivity extends AppCompatActivity {
 
