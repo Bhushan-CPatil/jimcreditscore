@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NAME : ANKIT TRIPATHI"
+                android:textStyle="bold"
                 android:textColor="@color/textcolordarkgray"
                 android:textSize="15sp"/>
             <TextView
@@ -37,10 +38,8 @@
                 android:layout_height="wrap_content"
                 android:text="HQ NAME : ANDHERI"
                 android:layout_marginTop="5dp"
-                android:textColor="#919191"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="12sp"/>
-
-
 
         </LinearLayout>
         <LinearLayout

@@ -3,6 +3,7 @@ package com.eijs.creditscore.api;
 
 import com.eijs.creditscore.pojo.DefaultResponse;
 import com.eijs.creditscore.pojo.IsUpdateReqRes;
+import com.eijs.creditscore.pojo.ListOfEmpRes;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -23,5 +24,12 @@ public interface Api {
     @POST("isupdaterequire.php")
     Call<IsUpdateReqRes> IsUpdateRequired();
 
-
+    @FormUrlEncoded
+    @POST("emplist.php")
+    Call<ListOfEmpRes> EmpList(
+            @Field("ecode") String ecode,
+            @Field("etype") String etype,
+            @Field("yr") String yr,
+            @Field("mth") String mth
+    );
 }
