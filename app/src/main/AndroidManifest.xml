@@ -14,7 +14,11 @@
         android:roundIcon="@drawable/ic_star_rating"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".java.LoginActivity"></activity>
+        <activity android:name=".java.DetailedHistory"></activity>
+        <activity android:name=".java.HistoryDocList" />
+        <activity android:name=".java.EntDocListActivity"
+            android:label="DOCTOR LIST"/>
+        <activity android:name=".java.LoginActivity" />
         <activity
             android:name=".java.SplashActivity"
             android:label="Spash">

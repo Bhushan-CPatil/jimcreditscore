@@ -12,4 +12,5 @@
     <color name="transparentblacktint">#80000000</color>
     <color name="transparentprimarytint">#80473080</color>
     <color name="transparentcolor">#00000000</color>
+    <color name="textcolorred">#FF5555</color>
 </resources>

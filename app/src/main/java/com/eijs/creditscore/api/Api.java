@@ -2,6 +2,7 @@ package com.eijs.creditscore.api;
 
 
 import com.eijs.creditscore.pojo.DefaultResponse;
+import com.eijs.creditscore.pojo.EntDocListRes;
 import com.eijs.creditscore.pojo.IsUpdateReqRes;
 import com.eijs.creditscore.pojo.ListOfEmpRes;
 
@@ -31,5 +32,12 @@ public interface Api {
             @Field("etype") String etype,
             @Field("yr") String yr,
             @Field("mth") String mth
+    );
+
+    @FormUrlEncoded
+    @POST("doentrydoclist.php")
+    Call<EntDocListRes> doEntryDocList(
+            @Field("netid") String netid,
+            @Field("wrkdate") String date
     );
 }
