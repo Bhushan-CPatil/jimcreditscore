@@ -40,4 +40,41 @@ public interface Api {
             @Field("netid") String netid,
             @Field("wrkdate") String date
     );
+
+    @FormUrlEncoded
+    @POST("deleteEntry.php")
+    Call<DefaultResponse> deleteEntry(
+            @Field("ecode") String ecode,
+            @Field("logecode") String logecode,
+            @Field("cntcd") String cntcd,
+            @Field("netid") String netid,
+            @Field("mth") String mth,
+            @Field("yr") String yr,
+            @Field("wrkdate") String wrkdate
+    );
+
+    @FormUrlEncoded
+    @POST("addScore.php")
+    Call<DefaultResponse> addScore(
+            @Field("ecode") String ecode,
+            @Field("logecode") String logecode,
+            @Field("ds") String ds,
+            @Field("ms") String ms,
+            @Field("cntcd") String cntcd,
+            @Field("netid") String netid,
+            @Field("mth") String mth,
+            @Field("yr") String yr,
+            @Field("wrkdate") String wrkdate
+    );
+
+    @FormUrlEncoded
+    @POST("getScore.php")
+    Call<DefaultResponse> getScore(
+            @Field("ecode") String ecode,
+            @Field("cntcd") String cntcd,
+            @Field("netid") String netid,
+            @Field("mth") String mth,
+            @Field("yr") String yr,
+            @Field("wrkdate") String wrkdate
+    );
 }

@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    public static final String BASE_URL = "http://192.168.0.104:80/creditscore/";
+    public static final String BASE_URL = "http://192.168.0.105:80/creditscore/";
     //public static final String BASE_URL = "http://180.149.242.109:8085/creditscore/";
 
     private static RetrofitClient mInstance;

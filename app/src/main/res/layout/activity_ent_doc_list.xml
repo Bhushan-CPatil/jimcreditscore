@@ -73,7 +73,8 @@ android:orientation="vertical">
         android:layout_height="match_parent"
         android:layout_marginTop="68dp"
         android:id="@+id/norecord"
-        android:src="@drawable/norecordfound"
+        android:src="@drawable/no_record_found_2"
+        android:scaleType="fitXY"
         android:visibility="visible"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -3,10 +3,12 @@ package com.eijs.creditscore.java;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -30,6 +32,7 @@ import com.eijs.creditscore.R;
 import com.eijs.creditscore.api.RetrofitClient;
 import com.eijs.creditscore.others.Global;
 import com.eijs.creditscore.others.ViewDialog;
+import com.eijs.creditscore.pojo.DefaultResponse;
 import com.eijs.creditscore.pojo.DoEntDocListItem;
 import com.eijs.creditscore.pojo.EntDocListRes;
 
@@ -95,13 +98,15 @@ public class EntDocListActivity extends AppCompatActivity {
                 myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialogSubmit(EntDocListActivity.this);
+                        //call fetch api
+                        getVal(selecode, model.getCntcd(), selnetid, Global.mth, Global.yr, Global.date, i, Global.ecode);
                     }
                 });
                 myHolder.edit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        dialogSubmit(EntDocListActivity.this);
+                        //call fetch api
+                        getVal(selecode, model.getCntcd(), selnetid, Global.mth, Global.yr, Global.date, i, Global.ecode);
                     }
                 });
 
@@ -109,6 +114,26 @@ public class EntDocListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         //todo delete popup
+                        AlertDialog.Builder builder = new AlertDialog.Builder(EntDocListActivity.this);
+                        builder.setCancelable(true);
+                        builder.setTitle("DELETE ?");
+                        builder.setMessage("Are you sure wants to delete ?");
+                        builder.setPositiveButton("Yes",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        performDelete(Global.ecode,selecode,model.getCntcd(),selnetid,Global.mth,Global.yr,Global.date,i);
+                                    }
+                                });
+                        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                //do nothing
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 });
             }
@@ -169,7 +194,7 @@ public class EntDocListActivity extends AppCompatActivity {
         });
     }
 
-    public static void dialogSubmit(final Context context) {
+    public void dialogSubmit(final Context context,final String DS,final String MS,final String ecode, final String logecode, final String cntcd, final String netid, final String mth, final String yr, final String wrkdate, final int position) {
         final Dialog dialog = new Dialog(context);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -178,7 +203,13 @@ public class EntDocListActivity extends AppCompatActivity {
         CardView buttonNo = dialog.findViewById(R.id.no);
         CardView buttonYes = dialog.findViewById(R.id.yes);
         final EditText ds = dialog.findViewById(R.id.score);
+        if(DS != null && !DS.equalsIgnoreCase("") && !DS.equalsIgnoreCase("0")){
+            ds.setText(DS);
+        }
         final EditText ms = dialog.findViewById(R.id.mthscore);
+        if(MS != null && !MS.equalsIgnoreCase("") && !MS.equalsIgnoreCase("0")){
+            ms.setText(MS);
+        }
         buttonNo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -201,6 +232,11 @@ public class EntDocListActivity extends AppCompatActivity {
                 }
                 if(f1 && f2) {
                     //todo call submit api
+                    if(ds.getText().toString().equalsIgnoreCase(DS) && ms.getText().toString().equalsIgnoreCase(MS)){
+                        Toast.makeText(context,"Score's not changed !",Toast.LENGTH_LONG).show();
+                    }else{
+                        performAddUpdate(ds.getText().toString(),ms.getText().toString(),ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
+                    }
                     dialog.dismiss();
                 }
             }
@@ -211,6 +247,106 @@ public class EntDocListActivity extends AppCompatActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.show();
         dialog.getWindow().setAttributes(lp);
+    }
+
+    private void performDelete(final String ecode, final String logecode, final String cntcd, final String netid, final String mth, final String yr, final String wrkdate, final int position) {
+        progressDialoge.show();
+        retrofit2.Call<DefaultResponse> call1 = RetrofitClient
+                .getInstance().getApi().deleteEntry(ecode,logecode,cntcd,netid,mth,yr,wrkdate);
+        call1.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<DefaultResponse> call1, Response<DefaultResponse> response) {
+                DefaultResponse res = response.body();
+                progressDialoge.dismiss();
+                if(!res.isError()){
+                    drlst.get(position).setStatus("N");
+                    doctorslist.getAdapter().notifyDataSetChanged();
+                    Toast.makeText(EntDocListActivity.this, res.getErrormsg(),Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(EntDocListActivity.this, res.getErrormsg(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call1, Throwable t) {
+                progressDialoge.dismiss();
+                Snackbar snackbar = Snackbar.make(sv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Re-try", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                performDelete(ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
+                            }
+                        });
+                snackbar.show();
+            }
+        });
+    }
+
+    private void performAddUpdate(final String ds, final String ms, final String ecode, final String logecode, final String cntcd, final String netid, final String mth, final String yr, final String wrkdate, final int position) {
+
+        progressDialoge.show();
+        retrofit2.Call<DefaultResponse> call1 = RetrofitClient
+                .getInstance().getApi().addScore(ecode,logecode,ds,ms,cntcd,netid,mth,yr,wrkdate);
+        call1.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<DefaultResponse> call1, Response<DefaultResponse> response) {
+                DefaultResponse res = response.body();
+                progressDialoge.dismiss();
+                if(!res.isError()){
+                    drlst.get(position).setStatus("A");
+                    doctorslist.getAdapter().notifyDataSetChanged();
+                    Toast.makeText(EntDocListActivity.this, res.getErrormsg(),Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(EntDocListActivity.this, res.getErrormsg(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call1, Throwable t) {
+                progressDialoge.dismiss();
+                Snackbar snackbar = Snackbar.make(sv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Re-try", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                performAddUpdate(ds,ms,ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
+                            }
+                        });
+                snackbar.show();
+            }
+        });
+    }
+
+    private void getVal(final String ecode, final String cntcd, final String netid, final String mth, final String yr, final String wrkdate, final int position, final String logecode) {
+
+        progressDialoge.show();
+        retrofit2.Call<DefaultResponse> call1 = RetrofitClient
+                .getInstance().getApi().getScore(ecode,cntcd,netid,mth,yr,wrkdate);
+        call1.enqueue(new Callback<DefaultResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<DefaultResponse> call1, Response<DefaultResponse> response) {
+                DefaultResponse res = response.body();
+                progressDialoge.dismiss();
+                if(!res.isError()){
+                    String[] data = res.getErrormsg().split("~");
+                    dialogSubmit(EntDocListActivity.this,data[1],data[0],ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
+                }else{
+                    Toast.makeText(EntDocListActivity.this, res.getErrormsg(),Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponse> call1, Throwable t) {
+                progressDialoge.dismiss();
+                Snackbar snackbar = Snackbar.make(sv, "Failed to fetch data !", Snackbar.LENGTH_INDEFINITE)
+                        .setAction("Re-try", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                getVal(ecode,cntcd,netid,mth,yr,wrkdate,position,logecode);
+                            }
+                        });
+                snackbar.show();
+            }
+        });
     }
 
     @Override
