@@ -1,5 +1,7 @@
 package com.eijs.creditscore.java;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -59,7 +61,7 @@ public class Frag_history extends Fragment {
             }
 
             @Override
-            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+            public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
                 final Holder myHolder= (Holder) viewHolder;
                 final EmplistItem model = emplist.get(i);
                 myHolder.name.setText("NAME : " + model.getEname().toUpperCase());
@@ -68,7 +70,13 @@ public class Frag_history extends Fragment {
                 myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        Intent intent = new Intent(getActivity(),HistoryDocList.class);
+                        intent.putExtra("ename", model.getEname());
+                        intent.putExtra("selecode", model.getEcode());
+                        intent.putExtra("selnetid", model.getNetid());
+                        intent.putExtra("position", Integer.toString(i));
+                        Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+                        startActivity(intent,bndlanimation);
                     }
                 });
 
