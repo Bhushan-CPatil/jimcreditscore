@@ -2,6 +2,7 @@ package com.eijs.creditscore.api;
 
 
 import com.eijs.creditscore.pojo.DefaultResponse;
+import com.eijs.creditscore.pojo.DetHistOfDocRes;
 import com.eijs.creditscore.pojo.EntDocListRes;
 import com.eijs.creditscore.pojo.IsUpdateReqRes;
 import com.eijs.creditscore.pojo.ListOfEmpRes;
@@ -49,6 +50,18 @@ public interface Api {
     Call<EntDocListRes> hisDocList(
             @Field("ecode") String ecode,
             @Field("netid") String netid,
+            @Field("wrkdate") String date,
+            @Field("yr") String yr,
+            @Field("mth") String mth
+    );
+
+
+    @FormUrlEncoded
+    @POST("getFullHistOfDoc.php")
+    Call<DetHistOfDocRes> getFullHistOfDoc(
+            @Field("ecode") String ecode,
+            @Field("netid") String netid,
+            @Field("cntcd") String cntcd,
             @Field("wrkdate") String date,
             @Field("yr") String yr,
             @Field("mth") String mth

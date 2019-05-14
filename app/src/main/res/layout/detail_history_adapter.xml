@@ -14,7 +14,6 @@
         android:orientation="vertical"
         android:layout_margin="5dp">
         <TextView
-            android:text="DATE : 20-20-2019"
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +38,8 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:gravity="center"
+                android:paddingLeft="@dimen/eight"
+                android:gravity="left"
                 android:text="Daily Score : "/>
 
             <TextView
@@ -49,8 +49,8 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/dailyscore"
-                android:gravity="center"
-                android:text="10000"/>
+                android:paddingRight="@dimen/eight"
+                android:gravity="end"/>
 
         </LinearLayout>
         <LinearLayout
@@ -64,8 +64,9 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:gravity="center"
-                android:text="MONTHLY Score : "/>
+                android:text="MONTHLY Score : "
+                android:paddingLeft="@dimen/eight"
+                android:gravity="left"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -74,8 +75,8 @@
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:id="@+id/monthlyscore"
-                android:gravity="center"
-                android:text="1000000"/>
+                android:paddingRight="@dimen/eight"
+                android:gravity="end"/>
 
         </LinearLayout>
     </LinearLayout>

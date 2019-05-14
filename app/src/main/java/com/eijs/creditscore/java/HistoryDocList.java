@@ -89,6 +89,7 @@ public class HistoryDocList extends AppCompatActivity {
                         Intent intent = new Intent(HistoryDocList.this,DetailedHistory.class);
                         intent.putExtra("drname", model.getDrname());
                         intent.putExtra("selcntcd", model.getCntcd());
+                        intent.putExtra("selecode", selecode);
                         intent.putExtra("selnetid", model.getNetid());
                         intent.putExtra("position", Integer.toString(i));
                         Bundle bndlanimation = ActivityOptions.makeCustomAnimation(HistoryDocList.this, R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
