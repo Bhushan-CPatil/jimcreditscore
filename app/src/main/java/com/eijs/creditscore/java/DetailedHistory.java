@@ -36,7 +36,11 @@ import com.eijs.creditscore.pojo.DoEntDocListItem;
 import com.eijs.creditscore.pojo.EntDocListRes;
 import com.eijs.creditscore.pojo.FullHistoryItem;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -91,7 +95,17 @@ public class DetailedHistory extends AppCompatActivity {
             public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
                 final Holder myHolder= (Holder) viewHolder;
                 final FullHistoryItem model = hislst.get(i);
-                myHolder.edate.setText("DATE - "+model.getEntdate());
+                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String inputDateStr=model.getEntdate();
+                Date date = null;
+                try {
+                    date = inputFormat.parse(inputDateStr);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                String outputDateStr = outputFormat.format(date);
+                myHolder.edate.setText("Date : "+outputDateStr);
                 myHolder.ds.setText(model.getDailyscore());
                 myHolder.ms.setText(model.getMthscore());
                 myHolder.editentry.setOnClickListener(new View.OnClickListener() {

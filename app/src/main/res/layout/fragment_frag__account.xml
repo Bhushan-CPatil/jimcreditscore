@@ -19,16 +19,53 @@
             android:src="@drawable/b4"
             android:scaleType="centerCrop"/>
     </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#B3473080"
+        android:layout_marginBottom="53dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="#B3473080"
-        android:layout_marginBottom="53dp">
+        >
 
-        
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_star_rating"
+                android:layout_margin="@dimen/twentyfour"
+                android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border"
+            android:padding="@dimen/eight"
+            android:orientation="vertical"
+            android:layout_marginRight="@dimen/sixteen"
+            android:layout_marginLeft="@dimen/sixteen"
+            android:layout_marginBottom="@dimen/eight">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CREDIT SCORE"
+                android:gravity="center"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/textcolorwhite"
+                android:gravity="center"
+                android:text="For Any Queries Related to application Feel Free To Call On +91 9594111458"/>
+
+        </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +83,7 @@
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:text="NAME :"
+                    android:text="NAME"
                     android:textColor="@color/colorAccent"
                     />
                 <TextView
@@ -55,10 +92,12 @@
                     android:layout_weight="3"
                     android:id="@+id/name"
                     android:textSize="18sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/textcolorwhite"
                     android:textStyle="bold"
                     android:ellipsize="end"
-                    android:singleLine="true"/>
+                    android:singleLine="true"
+                    android:paddingRight="@dimen/eight"
+                    android:gravity="end"/>
             </LinearLayout>
         
 
@@ -80,7 +119,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="HQ NAME :"
+                    android:text="HQ NAME"
                     android:textColor="@color/colorAccent"/>
                 <TextView
                     android:layout_width="0dp"
@@ -88,9 +127,11 @@
                     android:layout_weight="2"
                     android:id="@+id/hqname"
                     android:textSize="18sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/textcolorwhite"
                     android:textStyle="bold"
                     android:ellipsize="end"
+                    android:paddingRight="@dimen/eight"
+                    android:gravity="end"
                     android:singleLine="true"/>
             </LinearLayout>
 
@@ -112,7 +153,7 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:text="ECODE :"
+                    android:text="ECODE"
                     android:textColor="@color/colorAccent"/>
                 <TextView
                     android:layout_width="0dp"
@@ -120,9 +161,11 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:id="@+id/ecode"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/textcolorwhite"
                     android:textStyle="bold"
                     android:ellipsize="end"
+                    android:paddingRight="@dimen/eight"
+                    android:gravity="end"
                     android:singleLine="true"/>
             </LinearLayout>
         
@@ -145,7 +188,7 @@
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:text="NETID :"
+                    android:text="NETID"
                     android:textColor="@color/colorAccent"/>
                 <TextView
                     android:layout_width="0dp"
@@ -153,8 +196,10 @@
                     android:layout_weight="1"
                     android:id="@+id/netid"
                     android:textSize="18sp"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/textcolorwhite"
                     android:textStyle="bold"
+                    android:paddingRight="@dimen/eight"
+                    android:gravity="end"
                     android:ellipsize="end"
                     android:singleLine="true"/>
             </LinearLayout>
@@ -177,7 +222,7 @@
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textSize="18sp"
-                    android:text="EMP TYPE :"
+                    android:text="EMP TYPE"
                     android:textColor="@color/colorAccent"/>
                 <TextView
                     android:layout_width="0dp"
@@ -185,8 +230,10 @@
                     android:layout_weight="1"
                     android:textSize="18sp"
                     android:id="@+id/etype"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/textcolorwhite"
                     android:textStyle="bold"
+                    android:paddingRight="@dimen/eight"
+                    android:gravity="end"
                     android:ellipsize="end"
                     android:singleLine="true"/>
             </LinearLayout>
@@ -208,20 +255,22 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="WRK DATE :"
+                android:text="WRK DATE"
                 android:textColor="@color/colorAccent"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingRight="@dimen/eight"
+                android:gravity="end"
                 android:textSize="18sp"
                 android:id="@+id/wdate"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/textcolorwhite"
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:singleLine="true"/>
         </LinearLayout>
 
     </LinearLayout>
-
+    </ScrollView>
 </RelativeLayout>

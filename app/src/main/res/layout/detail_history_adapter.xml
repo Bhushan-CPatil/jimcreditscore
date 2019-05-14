@@ -70,7 +70,7 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:textSize="18sp"
-                android:text="MONTHLY Score : "
+                android:text="Monthly Score : "
                 android:paddingLeft="@dimen/eight"
                 android:gravity="left"/>
 

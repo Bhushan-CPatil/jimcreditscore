@@ -11,6 +11,11 @@ import android.widget.TextView;
 import com.eijs.creditscore.R;
 import com.eijs.creditscore.others.Global;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class Frag_Account extends Fragment {
 
@@ -45,7 +50,17 @@ public class Frag_Account extends Fragment {
         hqname.setText(Global.hname.toUpperCase());
         ecode.setText(Global.ecode.toUpperCase());
         netid.setText(Global.netid.toUpperCase());
-        wdate.setText(Global.date.toUpperCase());
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String inputDateStr=Global.date;
+        Date date = null;
+        try {
+            date = inputFormat.parse(inputDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String outputDateStr = outputFormat.format(date);
+        wdate.setText(outputDateStr);
         etype.setText(etypewrd);
 
         return v;
