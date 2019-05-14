@@ -82,6 +82,19 @@ public class HistoryDocList extends AppCompatActivity {
                 final Holder myHolder= (Holder) viewHolder;
                 final DoEntDocListItem model = drlst.get(i);
                 myHolder.drname.setText(model.getDrcd()+" - "+model.getDrname().toUpperCase());
+                myHolder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(HistoryDocList.this,DetailedHistory.class);
+                        intent.putExtra("drname", model.getDrname());
+                        intent.putExtra("selcntcd", model.getCntcd());
+                        intent.putExtra("selecode", selecode);
+                        intent.putExtra("selnetid", model.getNetid());
+                        intent.putExtra("position", Integer.toString(i));
+                        Bundle bndlanimation = ActivityOptions.makeCustomAnimation(HistoryDocList.this, R.anim.trans_left_in,R.anim.trans_left_out).toBundle();
+                        startActivity(intent,bndlanimation);
+                    }
+                });
                 myHolder.itemView.setTag(i);
                 myHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -104,9 +117,11 @@ public class HistoryDocList extends AppCompatActivity {
             }
             class Holder extends RecyclerView.ViewHolder {
                 TextView drname;
+                ImageButton view;
                 public Holder(@NonNull View itemView) {
                     super(itemView);
                     drname = itemView.findViewById(R.id.drname);
+                    view = itemView.findViewById(R.id.view);
                 }
             } }
         );
