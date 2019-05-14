@@ -6,9 +6,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eijs.creditscore.R;
@@ -31,6 +33,7 @@ public class Frag_history extends Fragment {
     View view;
     RecyclerView rv_hist;
     ViewDialog progressDialog;
+    LinearLayout l2,l3;
     List<EmplistItem> emplist = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +42,10 @@ public class Frag_history extends Fragment {
         view = inflater.inflate(R.layout.fragment_frag_history, container, false);
         progressDialog=new ViewDialog(getActivity());
         rv_hist = view.findViewById(R.id.rv_history);
+        l3 = view.findViewById(R.id.l3);
+        l2 = view.findViewById(R.id.l2);
+        l3.setVisibility(View.VISIBLE);
+        l2.setVisibility(View.GONE);
         rv_hist.setNestedScrollingEnabled(false);
         rv_hist.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -88,14 +95,18 @@ public class Frag_history extends Fragment {
         //data variables call
         progressDialog.show();
         Call<ListOfEmpRes> call = RetrofitClient
-                .getInstance().getApi().EmpList(Global.ecode,Global.emplevel,Global.yr,Global.mth);
+                .getInstance().getApi().HisEmpList(Global.ecode,Global.emplevel,Global.yr,Global.mth,Global.date);
         call.enqueue(new Callback<ListOfEmpRes>() {
             @Override
             public void onResponse(Call<ListOfEmpRes> call, retrofit2.Response<ListOfEmpRes> response) {
-                ListOfEmpRes res = response.body();
                 progressDialog.dismiss();
-                emplist = res.getEmplist();
-                rv_hist.getAdapter().notifyDataSetChanged();
+                    ListOfEmpRes res = response.body();
+                    emplist = res.getEmplist();
+                    if(emplist.size()>0){
+                        l3.setVisibility(View.GONE);
+                        l2.setVisibility(View.VISIBLE);
+                        rv_hist.getAdapter().notifyDataSetChanged();
+                    }
             }
 
             @Override

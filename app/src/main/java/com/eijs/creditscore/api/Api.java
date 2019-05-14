@@ -35,6 +35,26 @@ public interface Api {
     );
 
     @FormUrlEncoded
+    @POST("historyEmpList.php")
+    Call<ListOfEmpRes> HisEmpList(
+            @Field("ecode") String ecode,
+            @Field("etype") String etype,
+            @Field("yr") String yr,
+            @Field("mth") String mth,
+            @Field("logdate") String logdate
+    );
+
+    @FormUrlEncoded
+    @POST("hisDocList.php")
+    Call<EntDocListRes> hisDocList(
+            @Field("ecode") String ecode,
+            @Field("netid") String netid,
+            @Field("wrkdate") String date,
+            @Field("yr") String yr,
+            @Field("mth") String mth
+    );
+
+    @FormUrlEncoded
     @POST("doentrydoclist.php")
     Call<EntDocListRes> doEntryDocList(
             @Field("netid") String netid,
