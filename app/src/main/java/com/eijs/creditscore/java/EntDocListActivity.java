@@ -113,7 +113,6 @@ public class EntDocListActivity extends AppCompatActivity {
                 myHolder.delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //todo delete popup
                         AlertDialog.Builder builder = new AlertDialog.Builder(EntDocListActivity.this);
                         builder.setCancelable(true);
                         builder.setTitle("DELETE ?");
