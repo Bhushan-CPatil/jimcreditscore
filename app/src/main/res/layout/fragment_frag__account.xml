@@ -49,7 +49,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CREDIT SCORE"
+                android:text="@string/app_name"
                 android:gravity="center"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"

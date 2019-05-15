@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/btnsucces"
         android:layout_marginTop="16dp"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
         android:text="Try again"/>
 
 

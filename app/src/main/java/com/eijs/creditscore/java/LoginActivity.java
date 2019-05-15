@@ -180,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<IsUpdateReqRes> call, Throwable t) {
                 progress.dismiss();
-                Toast.makeText(LoginActivity.this, "Unable to check updates !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Due to slow internet app unable to check update !", Toast.LENGTH_SHORT).show();
             }
         });
     }
