@@ -165,7 +165,8 @@ public class LoginActivity extends AppCompatActivity {
                             public void onClick(View v) {
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(link));
-                                startActivity(intent);
+                                Bundle bndlanimation = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                                startActivity(intent, bndlanimation);
                             }
                         });
                         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();

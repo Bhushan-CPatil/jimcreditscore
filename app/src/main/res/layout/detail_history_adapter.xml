@@ -40,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/four"
             android:weightSum="2">
             <TextView
                 android:layout_width="0dp"
@@ -52,7 +53,7 @@
                 android:autoSizeStepGranularity="1sp"
                 android:paddingLeft="@dimen/eight"
                 android:gravity="left"
-                android:text="Daily Score : "/>
+                android:text="SCI. DETL. SCALE"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -64,6 +65,7 @@
                 android:autoSizeMaxTextSize="18sp"
                 android:autoSizeStepGranularity="1sp"
                 android:id="@+id/dailyscore"
+                android:layout_gravity="center"
                 android:paddingRight="@dimen/eight"
                 android:gravity="end"/>
 
@@ -72,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="@dimen/four"
             android:weightSum="2">
             <TextView
                 android:layout_width="0dp"
@@ -82,7 +85,7 @@
                 android:autoSizeMinTextSize="16sp"
                 android:autoSizeMaxTextSize="18sp"
                 android:autoSizeStepGranularity="1sp"
-                android:text="Monthly Score :"
+                android:text="AVG BIZ. FOR MTH."
                 android:paddingLeft="@dimen/eight"
                 android:gravity="left"/>
 
@@ -91,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
+                android:layout_gravity="center"
                 android:autoSizeTextType="uniform"
                 android:autoSizeMinTextSize="16sp"
                 android:autoSizeMaxTextSize="18sp"

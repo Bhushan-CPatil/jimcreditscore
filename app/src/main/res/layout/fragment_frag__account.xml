@@ -33,6 +33,7 @@
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:id="@+id/hidlogo"
                 android:src="@drawable/ic_star_rating"
                 android:layout_margin="@dimen/twentyfour"
                 android:layout_gravity="center"/>

@@ -1,32 +1,53 @@
 package com.eijs.creditscore.java;
 
 
+import android.app.ActivityOptions;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.button.MaterialButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.eijs.creditscore.R;
+import com.eijs.creditscore.api.RetrofitClient;
 import com.eijs.creditscore.others.Global;
+import com.eijs.creditscore.others.ViewDialog;
+import com.eijs.creditscore.pojo.IsUpdateReqRes;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class Frag_Account extends Fragment {
 
     TextView name,hqname,ecode,netid,etype,wdate;
     String etypewrd;
+    ViewDialog progress;
+    ImageView hidlogo;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_frag__account, container, false);
-
+        progress = new ViewDialog(getActivity());
+        hidlogo = v.findViewById(R.id.hidlogo);
         name = v.findViewById(R.id.name);
         hqname = v.findViewById(R.id.hqname);
         ecode = v.findViewById(R.id.ecode);
@@ -65,7 +86,42 @@ public class Frag_Account extends Fragment {
         wdate.setText(outputDateStr);
         etype.setText(etypewrd);
 
+        hidlogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(Global.emplevel.equalsIgnoreCase("7")){
+                    getReportLink();
+                }
+            }
+        });
+
         return v;
+    }
+
+    private void getReportLink() {
+
+        progress.show();
+        Call<IsUpdateReqRes> call = RetrofitClient
+                .getInstance().getApi().ReportLink();
+        call.enqueue(new Callback<IsUpdateReqRes>() {
+
+            @Override
+            public void onResponse(Call<IsUpdateReqRes> call, Response<IsUpdateReqRes> response) {
+                IsUpdateReqRes isUpReqRes = response.body();
+                progress.dismiss();
+                String link = isUpReqRes.getLink();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(link));
+                Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                startActivity(intent, bndlanimation);
+            }
+
+            @Override
+            public void onFailure(Call<IsUpdateReqRes> call, Throwable t) {
+                progress.dismiss();
+                Toast.makeText(getActivity(), "Due to slow internet app unable to get report link !", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

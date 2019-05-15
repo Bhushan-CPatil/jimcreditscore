@@ -26,6 +26,9 @@ public interface Api {
     @POST("isupdaterequire.php")
     Call<IsUpdateReqRes> IsUpdateRequired();
 
+    @POST("reportLink.php")
+    Call<IsUpdateReqRes> ReportLink();
+
     @FormUrlEncoded
     @POST("emplist.php")
     Call<ListOfEmpRes> EmpList(
