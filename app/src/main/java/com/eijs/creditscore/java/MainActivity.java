@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         Intent intent = new Intent(MainActivity.this,LoginActivity.class);
                         Bundle bndlanimation = ActivityOptions.makeCustomAnimation(MainActivity.this, R.anim.trans_right_in,R.anim.trans_right_out).toBundle();
                         startActivity(intent,bndlanimation);
@@ -125,8 +126,14 @@ public class MainActivity extends AppCompatActivity {
                 //do nothing
             }
         });
-
-        AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
+        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface arg0) {
+                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+            }
+        });
         dialog.show();
     }
 

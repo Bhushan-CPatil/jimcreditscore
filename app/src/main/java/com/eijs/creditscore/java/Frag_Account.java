@@ -44,6 +44,8 @@ public class Frag_Account extends Fragment {
             etypewrd = "ZSM";
         }else if(Global.emplevel.equalsIgnoreCase("5")){
             etypewrd = "SM";
+        }else if(Global.emplevel.equalsIgnoreCase("7")){
+            etypewrd = "ADMIN";
         }
 
         name.setText(Global.ename.toUpperCase());
