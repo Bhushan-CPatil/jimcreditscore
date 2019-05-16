@@ -90,7 +90,13 @@ public class Frag_Account extends Fragment {
             @Override
             public void onClick(View v) {
                 if(Global.emplevel.equalsIgnoreCase("7")){
-                    getReportLink();
+                    String link = "http://180.149.242.109:8080/jimsun/servlet/eis.reports.EIJSReport?isFirstTime=1&Elevel="+Global.emplevel+"&EmpCode="+Global.ecode+"&DB=jimsun&WorkingYear="+Global.yr+"&WorkingMonth="+Global.mth;
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(link));
+                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                    startActivity(intent, bndlanimation);
+                }else{
+                    Toast.makeText(getActivity(), "Access Denied !", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -98,7 +104,7 @@ public class Frag_Account extends Fragment {
         return v;
     }
 
-    private void getReportLink() {
+    /*private void getReportLink() {
 
         progress.show();
         Call<IsUpdateReqRes> call = RetrofitClient
@@ -122,6 +128,6 @@ public class Frag_Account extends Fragment {
                 Toast.makeText(getActivity(), "Due to slow internet app unable to get report link !", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+    }*/
 
 }
