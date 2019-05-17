@@ -1,5 +1,6 @@
 package com.eijs.creditscore.java;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -209,11 +211,11 @@ public class EntDocListActivity extends AppCompatActivity {
         CardView buttonNo = dialog.findViewById(R.id.no);
         CardView buttonYes = dialog.findViewById(R.id.yes);
         final EditText ds = dialog.findViewById(R.id.score);
-        if(DS != null && !DS.equalsIgnoreCase("") && !DS.equalsIgnoreCase("0")){
+        if(DS != null && !DS.equalsIgnoreCase("") && !DS.equalsIgnoreCase("000.000")){
             ds.setText(DS);
         }
         final EditText ms = dialog.findViewById(R.id.mthscore);
-        if(MS != null && !MS.equalsIgnoreCase("") && !MS.equalsIgnoreCase("0")){
+        if(MS != null && !MS.equalsIgnoreCase("") && !MS.equalsIgnoreCase("000.000")){
             ms.setText(MS);
         }
         buttonNo.setOnClickListener(new View.OnClickListener() {
@@ -239,9 +241,11 @@ public class EntDocListActivity extends AppCompatActivity {
                 if(f1 && f2) {
                     //todo call submit api
                     if(ds.getText().toString().equalsIgnoreCase(DS) && ms.getText().toString().equalsIgnoreCase(MS)){
-                        Toast.makeText(context,"Score's not changed !",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Values not changed !",Toast.LENGTH_LONG).show();
                     }else{
-                        performAddUpdate(ds.getText().toString(),ms.getText().toString(),ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
+                        @SuppressLint("DefaultLocale") String d1 = String.format("%.3f", Double.parseDouble(ds.getText().toString()));
+                        @SuppressLint("DefaultLocale") String m1 = String.format("%.3f", Double.parseDouble(ms.getText().toString()));
+                        performAddUpdate(d1,m1,ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
                     }
                     dialog.dismiss();
                 }
@@ -333,6 +337,7 @@ public class EntDocListActivity extends AppCompatActivity {
                 DefaultResponse res = response.body();
                 progressDialoge.dismiss();
                 if(!res.isError()){
+                    //Log.d("response--->",res.getErrormsg());
                     String[] data = res.getErrormsg().split("~");
                     dialogSubmit(EntDocListActivity.this,data[1],data[0],ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
                 }else{

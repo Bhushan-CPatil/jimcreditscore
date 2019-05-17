@@ -277,7 +277,7 @@ public class DetailedHistory extends AppCompatActivity {
                 if(f1 && f2) {
                     //todo call submit api
                     if(ds.getText().toString().equalsIgnoreCase(DS) && ms.getText().toString().equalsIgnoreCase(MS)){
-                        Toast.makeText(context,"Score's not changed !",Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Values not changed !",Toast.LENGTH_LONG).show();
                     }else{
                         performAddUpdate(ds.getText().toString(),ms.getText().toString(),ecode,logecode,cntcd,netid,mth,yr,wrkdate,position);
                     }

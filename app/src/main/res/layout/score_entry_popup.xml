@@ -74,10 +74,10 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:id="@+id/score"
                     android:layout_marginLeft="@dimen/six"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     android:layout_gravity="center"
                     android:maxLength="6"
-                    android:hint="Enter Score"/>
+                    android:hint="Enter Score" />
 
             </LinearLayout>
             <View
