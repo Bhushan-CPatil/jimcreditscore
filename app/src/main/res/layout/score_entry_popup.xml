@@ -64,8 +64,6 @@
                         android:gravity="center"
                         android:text="DETAILING SCALE"/>
                 </LinearLayout>
-
-
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
