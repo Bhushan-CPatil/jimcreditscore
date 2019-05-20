@@ -77,7 +77,7 @@
                     android:inputType="numberDecimal"
                     android:layout_gravity="center"
                     android:maxLength="6"
-                    android:hint="Enter Score" />
+                    android:hint="Enter Value" />
 
             </LinearLayout>
             <View
@@ -122,7 +122,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:hint="Enter Score"
+                    android:hint="Enter Value"
                     android:layout_marginLeft="@dimen/six"
                     android:inputType="numberDecimal"
                     android:layout_gravity="center"

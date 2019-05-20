@@ -3,6 +3,7 @@ package com.eijs.creditscore.java;
 
 import android.app.ActivityOptions;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.button.MaterialButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,11 +93,43 @@ public class Frag_Account extends Fragment {
             @Override
             public void onClick(View v) {
                 if(Global.emplevel.equalsIgnoreCase("7")){
-                    String link = "http://180.149.242.109:8080/jimsun/servlet/eis.reports.EIJSReport?isFirstTime=1&Elevel="+Global.emplevel+"&EmpCode="+Global.ecode+"&DB=jimsun&WorkingYear="+Global.yr+"&WorkingMonth="+Global.mth;
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(link));
-                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
-                    startActivity(intent, bndlanimation);
+                    String msgstring = "To view daily report click on <b>DAILY</b> button \nand to view monthly report click on <b>MONTHLY</b> button.";
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setCancelable(true);
+                    builder.setTitle("Reports");
+                    builder.setMessage(Html.fromHtml(msgstring));
+                    builder.setPositiveButton("Daily",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String link = "http://180.149.242.109:8080/jimsun/servlet/eis.reports.EIJSReport?isFirstTime=1&Elevel="+Global.emplevel+"&EmpCode="+Global.ecode+"&DB=jimsun&WorkingYear="+Global.yr+"&WorkingMonth="+Global.mth;
+                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                                    intent.setData(Uri.parse(link));
+                                    Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                                    startActivity(intent, bndlanimation);
+                                }
+                            });
+                    builder.setNegativeButton("Monthly", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String syreyr = Global.getFinancialYr(Global.mth,Global.yr);
+                            String[] se = syreyr.split("~");
+                            String link = "http://180.149.242.109:8080/jimsun/servlet/eis.reports.EIJSMonthWiseReport?isFirstTime=1&Elevel="+Global.emplevel+"&EmpCode="+Global.ecode+"&DB=jimsun&WorkingYear="+Global.yr+"&WorkingMonth="+Global.mth+"&FinStrtDate="+se[0]+"-04-01&finEndDate="+se[1]+"-03-31";
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(link));
+                            Bundle bndlanimation = ActivityOptions.makeCustomAnimation(getActivity(), R.anim.trans_left_in, R.anim.trans_left_out).toBundle();
+                            startActivity(intent, bndlanimation);
+                        }
+                    });
+                    final AlertDialog dialog = builder.create();
+                    dialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.colorPrimary));
+                        }
+                    });
+                    dialog.show();
                 }else{
                     Toast.makeText(getActivity(), "Access Denied !", Toast.LENGTH_SHORT).show();
                 }

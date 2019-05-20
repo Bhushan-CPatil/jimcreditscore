@@ -48,9 +48,9 @@ public class Global {
         //System.out.println("Financial Year is :"+finStrtMth+strtYr+" to "+endMth+""+endYr);
 
         //return strtYr+finStrtMth+"-"+endYr+""+((endMth+"").length()<2 ? "0"+endMth : endMth);
-        String syr = Integer.toString(strtYr).substring(2);
-        String eyr = Integer.toString(endYr).substring(2);
-        return syr+""+eyr;
+        //String syr = Integer.toString(strtYr).substring(2);
+        //String eyr = Integer.toString(endYr).substring(2);
+        return strtYr+"~"+endYr;
     }
 
 
